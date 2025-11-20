@@ -43,12 +43,12 @@ export default function Hero() {
           if (entry.isIntersecting && !hasAnimated.current) {
             hasAnimated.current = true;
             
-            const currentYear = new Date().getFullYear();
-            const startYear = 2005;
-            const yearsToCount = currentYear - startYear + 1; // 2005 to current year
+            const startYear = 2000;
+            const targetYear = 2005;
+            const yearsToCount = targetYear - startYear + 1; // 2000 to 2005
             
             const targets = {
-              established: currentYear,
+              established: targetYear,
               students: 1000,
               faculty: 15,
               success: 100,
@@ -64,7 +64,10 @@ export default function Hero() {
               const progress = currentStep / steps;
 
               // For established: count year by year from 2005 to current year
-              const establishedValue = startYear + Math.floor(yearsToCount * progress);
+              const establishedValue = Math.min(
+                startYear + Math.floor(yearsToCount * progress),
+                targetYear
+              );
               
               setCounts({
                 established: establishedValue,

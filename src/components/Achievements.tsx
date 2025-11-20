@@ -30,21 +30,23 @@ export default function Achievements() {
 
   const testimonials = [
     {
-      name: 'Mrs. Sharma',
-      role: 'Parent',
       text: 'Green Valley has transformed my child\'s learning experience. The teachers are dedicated and caring, and the facilities are excellent.',
       rating: 5,
     },
     {
-      name: 'Mr. Verma',
-      role: 'Parent',
       text: 'The holistic approach to education here is remarkable. My daughter excels not just academically but also in sports and arts.',
       rating: 5,
     },
     {
-      name: 'Mrs. Patel',
-      role: 'Parent',
       text: 'Highly recommend this school! The individual attention each child receives is outstanding. Worth every penny.',
+      rating: 5,
+    },
+    {
+      text: 'From academics to co-curriculars, everything is well balanced. My son loves coming to school every day.',
+      rating: 5,
+    },
+    {
+      text: 'Safe campus, friendly staff, and great leadership. We have total peace of mind after enrolling our child here.',
       rating: 5,
     },
   ];
@@ -116,29 +118,23 @@ export default function Achievements() {
 
         <div className="animate-fade-in-up">
           <h3 className="text-2xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-6 sm:mb-7 md:mb-8 text-center">What Parents Say</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-7 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
-              >
-                <div className="flex mb-3 sm:mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-4 sm:mb-5 md:mb-6 leading-relaxed italic text-sm sm:text-base">"{testimonial.text}"</p>
-                <div className="flex items-center space-x-2 sm:space-x-3">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-base sm:text-lg flex-shrink-0">
-                    {testimonial.name.charAt(0)}
+          <div className="relative overflow-hidden">
+            <div className="flex gap-5 sm:gap-6 md:gap-8 animate-marquee will-change-transform">
+              {testimonials.concat(testimonials).map((testimonial, index) => (
+                <div
+                  key={index}
+                  className="min-w-[260px] sm:min-w-[300px] lg:min-w-[360px] bg-white rounded-xl sm:rounded-2xl p-6 sm:p-7 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-300"
+                >
+                  <div className="flex mb-3 sm:mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={`${index}-${i}`} className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
+                    ))}
                   </div>
-                  <div>
-                    <div className="font-bold text-gray-900 text-sm sm:text-base">{testimonial.name}</div>
-                    <div className="text-xs sm:text-sm text-gray-600">{testimonial.role}</div>
-                  </div>
+                  <p className="text-gray-700 mb-4 sm:mb-5 md:mb-6 leading-relaxed italic text-sm sm:text-base">"{testimonial.text}"</p>
+                  <div className="text-green-600 font-semibold text-xs sm:text-sm uppercase tracking-wide">Happy Parent</div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

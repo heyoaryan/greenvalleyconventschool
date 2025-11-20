@@ -54,6 +54,7 @@ export default function Header() {
               <img
                 src="/logo/logo.png"
                 alt="Green Valley Convent School Logo"
+                id="site-logo"
                 className="h-8 w-auto sm:h-9 md:h-10 rounded-xl shadow-lg transform group-hover:scale-105 group-hover:-rotate-3 transition-transform duration-300"
               />
             </div>
