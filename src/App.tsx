@@ -9,6 +9,7 @@ import Preloader from './components/Preloader';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import NotFound from './pages/NotFound';
+import FestivalGreeting from './components/FestivalGreeting';
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
       </Routes>
       {showFooter && <Footer />}
       {showNoticeBoard && <NoticeBoard />}
+      <FestivalGreeting />
     </div>
   );
 }

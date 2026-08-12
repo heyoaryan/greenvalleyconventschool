@@ -31,8 +31,6 @@ export default function NoticeBoard() {
     });
   };
 
-  if (!loading && notices.length === 0) return null;
-
   return (
     /* Bottom-left, but above the ScrollToTop button which is bottom-right.
        On mobile keep it small enough so it never reaches bottom-right corner.
@@ -70,6 +68,11 @@ export default function NoticeBoard() {
             {loading ? (
               <div className="p-6 text-center">
                 <div className="w-6 h-6 border-2 border-school-green border-t-transparent rounded-full animate-spin mx-auto" />
+              </div>
+            ) : notices.length === 0 ? (
+              <div className="p-5 text-center">
+                <Megaphone className="w-8 h-8 text-gray-200 mx-auto mb-2" />
+                <p className="text-xs text-gray-400 font-medium">No notices at the moment</p>
               </div>
             ) : (
               notices.map((notice) => (
