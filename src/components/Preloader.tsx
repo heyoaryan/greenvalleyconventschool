@@ -50,27 +50,24 @@ export default function Preloader({ isTransitioning, onFinish }: PreloaderProps)
           transform,
           transformOrigin: 'center',
         }}
-        className={`flex flex-col items-center gap-5 transition-transform duration-700 ease-in-out ${
-          isTransitioning ? 'drop-shadow-xl' : ''
-        }`}
+        className="flex flex-col items-center gap-4 transition-transform duration-700 ease-in-out"
       >
-        <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full shadow-2xl bg-white flex items-center justify-center overflow-hidden animate-preloader-pulse border-4 border-green-100">
+        <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full shadow-lg bg-white flex items-center justify-center overflow-hidden border-2 border-school-green/10">
           <img
             src="/logo/logo.png"
             alt="Green Valley Convent School Logo"
-            className="w-20 h-20 sm:w-24 sm:h-24 object-contain"
+            className="w-16 h-16 sm:w-20 sm:h-20 object-contain"
           />
         </div>
         <div className="text-center">
-          <p className="text-xl sm:text-2xl font-bold text-green-700 tracking-wide uppercase">
+          <p className="text-xl sm:text-2xl font-bold text-school-green tracking-wide">
             Green Valley
           </p>
-          <p className="text-sm sm:text-base text-gray-500 tracking-[0.3em]">
-            CONVENT SCHOOL
+          <p className="text-xs sm:text-sm text-gray-500 tracking-widest uppercase">
+            Convent School
           </p>
         </div>
       </div>
     </div>
   );
 }
-

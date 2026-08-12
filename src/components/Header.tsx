@@ -15,12 +15,20 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: string, isLink: boolean = false) => {
-    if (isLink) {
-      setIsMobileMenuOpen(false);
-      return;
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
     }
-    // If we're on gallery page, navigate to home first
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  const scrollToSection = (id: string) => {
+    setIsMobileMenuOpen(false);
     if (location.pathname !== '/') {
       window.location.href = '/#' + id;
       return;
@@ -28,119 +36,157 @@ export default function Header() {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
     }
   };
 
   const navItems = [
-    { label: 'Home', id: 'hero', isLink: false },
-    { label: 'About', id: 'about', isLink: false },
-    { label: 'Academics', id: 'academics', isLink: false },
-    { label: 'Facilities', id: 'facilities', isLink: false },
-    { label: 'Achievements', id: 'achievements', isLink: false },
-    { label: 'Contact', id: 'contact', isLink: false },
+    { label: 'Home', id: 'hero' },
+    { label: 'About', id: 'about' },
+    { label: 'Academics', id: 'academics' },
+    { label: 'Facilities', id: 'facilities' },
+    { label: 'Achievements', id: 'achievements' },
+    { label: 'Contact', id: 'contact' },
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? 'bg-white shadow-lg py-3' : 'bg-transparent py-5'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2 sm:space-x-3 cursor-pointer group">
-            <div className="flex items-center justify-center">
-              <img
-                src="/logo/logo.png"
-                alt="Green Valley Convent School Logo"
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isScrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-2' : 'bg-transparent py-3 sm:py-4'
+        }`}
+      >
+        <div className="section-container">
+          <div className="flex items-center justify-between min-w-0">
+            {/* Logo */}
+            <Link
+              to="/"
+              className="flex items-center gap-2 sm:gap-3 group min-w-0 flex-shrink-0"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
+              <div
                 id="site-logo"
-                className="h-8 w-auto sm:h-9 md:h-10 rounded-xl shadow-lg transform group-hover:scale-105 group-hover:-rotate-3 transition-transform duration-300"
-              />
-            </div>
-            <div className="min-w-0">
-              <h1
-                className={`text-sm sm:text-base md:text-lg lg:text-xl font-bold transition-colors truncate ${
-                  isScrolled ? 'text-gray-900' : 'text-white'
-                }`}
+                className="relative w-9 h-9 sm:w-11 sm:h-11 flex-shrink-0"
               >
-                Green Valley Convent School
-              </h1>
-              <p
-                className={`text-[10px] sm:text-xs transition-colors hidden xs:block ${
-                  isScrolled ? 'text-gray-600' : 'text-green-100'
-                }`}
-              >
-                Nurturing Young Minds Since 2005
-              </p>
-            </div>
-          </Link>
-
-          <nav className="hidden lg:flex space-x-1">
-            {navItems.map((item) => (
-              item.isLink ? (
-                <Link
-                  key={item.id}
-                  to={item.id}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 ${
-                    isScrolled
-                      ? 'text-gray-700 hover:bg-green-50 hover:text-green-600'
-                      : 'text-white hover:bg-white/20'
+                <img
+                  src="/logo/logo.png"
+                  alt="Green Valley Convent School"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="hidden sm:block min-w-0">
+                <h1
+                  className={`text-sm sm:text-base lg:text-lg font-bold leading-tight transition-colors truncate ${
+                    isScrolled ? 'text-school-green' : 'text-white'
                   }`}
                 >
-                  {item.label}
-                </Link>
-              ) : (
+                  Green Valley
+                </h1>
+                <p
+                  className={`text-xs transition-colors truncate ${
+                    isScrolled ? 'text-gray-600' : 'text-green-100'
+                  }`}
+                >
+                  Convent School
+                </p>
+              </div>
+            </Link>
+
+            {/* Desktop Nav */}
+            <nav className="hidden lg:flex items-center gap-1 flex-shrink-0">
+              {navItems.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id, item.isLink)}
-                  className={`px-2 sm:px-3 md:px-4 py-2 rounded-lg font-medium text-sm sm:text-base transition-all duration-300 hover:scale-105 ${
+                  onClick={() => scrollToSection(item.id)}
+                  className={`px-3 xl:px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 whitespace-nowrap ${
                     isScrolled
-                      ? 'text-gray-700 hover:bg-green-50 hover:text-green-600'
-                      : 'text-white hover:bg-white/20'
+                      ? 'text-gray-700 hover:text-school-green hover:bg-school-green/5'
+                      : 'text-white/90 hover:text-white hover:bg-white/10'
                   }`}
                 >
                   {item.label}
                 </button>
-              )
-            ))}
-          </nav>
+              ))}
+              <button
+                onClick={() => scrollToSection('admissions')}
+                className="px-4 xl:px-5 py-2 bg-school-gold text-school-green text-sm font-semibold rounded-lg hover:bg-school-gold/90 transition-all duration-300 shadow-sm hover:shadow-md whitespace-nowrap"
+              >
+                Admissions
+              </button>
+            </nav>
 
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`lg:hidden p-2 rounded-lg transition-colors ${
-              isScrolled ? 'text-gray-900' : 'text-white'
-            }`}
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+            {/* Hamburger */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={`lg:hidden p-2 rounded-lg transition-colors flex-shrink-0 ${
+                isScrolled ? 'text-gray-900 hover:bg-gray-100' : 'text-white hover:bg-white/10'
+              }`}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
+      </header>
 
-        {isMobileMenuOpen && (
-          <nav className="lg:hidden mt-4 pb-4 space-y-2 animate-fade-in">
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 z-[9999] lg:hidden transition-all duration-300 ${
+          isMobileMenuOpen ? 'visible' : 'invisible pointer-events-none'
+        }`}
+      >
+        {/* Backdrop */}
+        <div
+          className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${
+            isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+
+        {/* Drawer */}
+        <nav
+          className={`absolute top-0 right-0 h-full w-72 max-w-[85vw] bg-white shadow-2xl transform transition-transform duration-300 ease-out flex flex-col ${
+            isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+        >
+          {/* Drawer Header */}
+          <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 flex-shrink-0">
+            <div>
+              <p className="text-sm font-semibold text-gray-900">Menu</p>
+              <p className="text-xs text-gray-500">Green Valley Convent School</p>
+            </div>
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-2 rounded-lg text-gray-700 hover:bg-gray-100"
+              aria-label="Close menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Nav items */}
+          <div className="px-3 py-4 space-y-1 flex-1 overflow-y-auto">
             {navItems.map((item) => (
-              item.isLink ? (
-                <Link
-                  key={item.id}
-                  to={item.id}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block w-full text-left px-4 py-3 rounded-lg font-medium bg-white text-gray-700 hover:bg-green-50 hover:text-green-600 transition-all duration-300 transform hover:translate-x-2"
-                >
-                  {item.label}
-                </Link>
-              ) : (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id, item.isLink)}
-                  className="block w-full text-left px-4 py-3 rounded-lg font-medium bg-white text-gray-700 hover:bg-green-50 hover:text-green-600 transition-all duration-300 transform hover:translate-x-2"
-                >
-                  {item.label}
-                </button>
-              )
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="block w-full text-left px-3 py-3 rounded-lg text-gray-700 hover:text-school-green hover:bg-school-green/5 transition-all duration-200 font-medium"
+              >
+                {item.label}
+              </button>
             ))}
-          </nav>
-        )}
+          </div>
+
+          {/* Admissions CTA */}
+          <div className="px-5 py-4 border-t border-gray-100 flex-shrink-0">
+            <button
+              onClick={() => scrollToSection('admissions')}
+              className="w-full px-4 py-3 bg-school-gold text-school-green font-semibold rounded-lg hover:bg-school-gold/90 transition-all duration-300"
+            >
+              Admissions
+            </button>
+          </div>
+        </nav>
       </div>
-    </header>
+    </>
   );
 }

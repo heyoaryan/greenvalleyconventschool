@@ -1,30 +1,26 @@
-import { FileText, Calendar, ClipboardCheck, UserCheck, Download, ArrowRight } from 'lucide-react';
+import { FileText, ClipboardCheck, UserCheck, Calendar, ArrowRight } from 'lucide-react';
 
 export default function Admissions() {
   const steps = [
     {
       icon: FileText,
       title: 'Fill Application',
-      description: 'Download and complete the admission form with required details',
-      color: 'from-blue-500 to-cyan-500',
+      description: 'Download and complete the admission form with accurate details and information.',
     },
     {
       icon: ClipboardCheck,
       title: 'Submit Documents',
-      description: 'Submit the form along with necessary documents and photographs',
-      color: 'from-purple-500 to-pink-500',
+      description: 'Submit the completed form along with necessary documents and photographs.',
     },
     {
       icon: UserCheck,
       title: 'Interaction',
-      description: 'Meet with our admission team for student and parent interaction',
-      color: 'from-green-500 to-emerald-500',
+      description: 'Meet with our admission team for student and parent interaction session.',
     },
     {
       icon: Calendar,
-      title: 'Admission Confirm',
-      description: 'Complete formalities and receive admission confirmation',
-      color: 'from-orange-500 to-amber-500',
+      title: 'Confirmation',
+      description: 'Complete formalities and receive official admission confirmation.',
     },
   ];
 
@@ -38,113 +34,123 @@ export default function Admissions() {
   ];
 
   return (
-    <section id="admissions" className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-        <div className="text-center mb-10 sm:mb-12 md:mb-16 animate-fade-in-up">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
-            Admission <span className="text-green-600">Status</span>
+    <section id="admissions" className="py-14 sm:py-20 md:py-28 bg-white">
+      <div className="section-container">
+        <div className="text-center mb-10 sm:mb-16 md:mb-20">
+          <h2 className="section-heading">
+            Admission <span className="text-school-green">Status</span>
           </h2>
-          <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-green-500 to-emerald-600 mx-auto mb-4 sm:mb-6"></div>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-            Admissions for the academic year <span className="font-semibold">2025-26</span> are currently{' '}
+          <div className="accent-line" />
+          <p className="section-subheading">
+            Admissions for the academic year{' '}
+            <span className="font-semibold">2026-27</span> are{' '}
             <span className="font-semibold text-red-600">closed</span>. Stay tuned for updates regarding{' '}
-            <span className="font-semibold">2026-27</span> academic session.
+            <span className="font-semibold">2027-28</span> academic session.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 md:gap-8 mb-10 sm:mb-12 md:mb-16">
-          {steps.map((step, index) => (
-            <div
-              key={index}
-              className="relative animate-fade-in-up"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <div className="bg-white rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 h-full">
-                <div className="flex items-center justify-between mb-4 sm:mb-5 md:mb-6">
-                  <div className={`bg-gradient-to-br ${step.color} w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg transform hover:rotate-12 transition-transform duration-300`}>
-                    <step.icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
+        {/* Admission Process */}
+        <div className="mb-14 sm:mb-20">
+          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 text-center">
+            Admission Process
+          </h3>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+            {steps.map((step, index) => (
+              <div key={index}>
+                <div className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 shadow-sm border border-gray-100 hover:shadow-md hover:border-school-green/20 transition-all duration-300 h-full">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-school-green/5 flex items-center justify-center flex-shrink-0">
+                      <span className="text-school-green font-bold text-base sm:text-lg">{index + 1}</span>
+                    </div>
+                    <div className="p-2 sm:p-2.5 bg-school-green/5 rounded-lg flex-shrink-0">
+                      <step.icon className="w-4 h-4 sm:w-5 sm:h-5 text-school-green" />
+                    </div>
                   </div>
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-200">0{index + 1}</div>
+                  <h3 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 mb-2 leading-tight">
+                    {step.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{step.description}</p>
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">{step.title}</h3>
-                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{step.description}</p>
               </div>
-              {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
-                  <ArrowRight className="w-8 h-8 text-green-400" />
-                </div>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 sm:gap-7 md:gap-8 mb-10 sm:mb-12 md:mb-16">
-          <div className="bg-gradient-to-br from-green-600 to-emerald-600 rounded-2xl sm:rounded-3xl p-6 sm:p-7 md:p-8 lg:p-10 text-white shadow-2xl animate-fade-in-left">
-            <h3 className="text-2xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-5 md:mb-6">
-              Admissions Closed for 2025-26
+        {/* Info blocks */}
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 mb-10 sm:mb-16">
+          {/* Closed Notice */}
+          <div className="bg-gradient-to-br from-school-green to-school-green/90 rounded-3xl p-6 sm:p-8 md:p-10 text-white shadow-lg">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">
+              Admissions Closed for 2026-27
             </h3>
-            <p className="text-green-100 text-base sm:text-lg mb-4 sm:mb-5 md:mb-6 leading-relaxed">
-              Thank you for your interest in Green Valley Convent School. Admissions for the academic year{' '}
-              <span className="font-semibold">2025-26</span> are now closed.
+            <p className="text-white/80 mb-6 leading-relaxed text-sm sm:text-base">
+              Thank you for your interest in Green Valley Convent School. Admissions for the academic
+              year <span className="font-semibold text-white">2026-27</span> are now closed.
             </p>
-            <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-7 md:mb-8">
-              <li className="flex items-center space-x-2 sm:space-x-3">
-                <div className="w-2 h-2 bg-white rounded-full flex-shrink-0"></div>
-                <span className="text-green-50 text-sm sm:text-base">
-                  Stay tuned for announcements regarding <span className="font-semibold">2026-27</span> admissions.
+            <ul className="space-y-3 mb-6 sm:mb-8">
+              <li className="flex items-start gap-3">
+                <span className="w-1.5 h-1.5 bg-school-gold rounded-full mt-2 flex-shrink-0" />
+                <span className="text-white/90 text-xs sm:text-sm">
+                  Stay tuned for announcements regarding{' '}
+                  <span className="font-semibold text-white">2027-28</span> admissions.
                 </span>
               </li>
-              <li className="flex items-center space-x-2 sm:space-x-3">
-                <div className="w-2 h-2 bg-white rounded-full flex-shrink-0"></div>
-                <span className="text-green-50 text-sm sm:text-base">
-                  Follow our social media channels for the latest updates.
+              <li className="flex items-start gap-3">
+                <span className="w-1.5 h-1.5 bg-school-gold rounded-full mt-2 flex-shrink-0" />
+                <span className="text-white/90 text-xs sm:text-sm">
+                  Follow our social media channels for the latest updates and announcements.
                 </span>
               </li>
             </ul>
             <button
-              className="w-full sm:w-auto bg-white text-green-600 px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 rounded-full font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center space-x-2 group"
               onClick={() => window.alert('Currently Admission Closed')}
+              className="inline-flex items-center gap-2 px-5 py-3 bg-white text-school-green font-semibold rounded-lg hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 text-sm sm:text-base"
             >
-              <Download className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-bounce" />
-              <span>Download Application Form</span>
+              <FileText className="w-4 h-4 flex-shrink-0" />
+              Fill Application Form
             </button>
           </div>
 
-          <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-7 md:p-8 lg:p-10 shadow-xl border-2 border-gray-100 animate-fade-in-right">
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-5 md:mb-6">Required Documents</h3>
-            <ul className="space-y-3 sm:space-y-4">
+          {/* Documents */}
+          <div className="bg-school-cream rounded-3xl p-6 sm:p-8 md:p-10 border border-gray-100">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-5 sm:mb-6">
+              Required Documents on visit school
+            </h3>
+            <ul className="space-y-2 sm:space-y-3">
               {requirements.map((req, index) => (
                 <li
                   key={index}
-                  className="flex items-start space-x-2 sm:space-x-3 group"
+                  className="flex items-start gap-3 p-2.5 sm:p-3 bg-white rounded-xl border border-gray-100 hover:border-school-green/20 transition-all duration-300"
                 >
-                  <div className="bg-green-100 p-1 rounded-full mt-1 group-hover:bg-green-200 transition-colors duration-300 flex-shrink-0">
-                    <ClipboardCheck className="w-3 h-3 sm:w-4 sm:h-4 text-green-600" />
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-school-green/5 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-xs font-bold text-school-green">{index + 1}</span>
                   </div>
-                  <span className="text-gray-700 flex-1 text-sm sm:text-base">{req}</span>
+                  <span className="text-xs sm:text-sm text-gray-700 font-medium leading-snug">{req}</span>
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 rounded-2xl sm:rounded-3xl p-6 sm:p-7 md:p-8 lg:p-12 text-center animate-fade-in-up">
-          <h3 className="text-2xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">Have Questions?</h3>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-7 md:mb-8 max-w-2xl mx-auto px-4">
+        {/* CTA */}
+        <div className="text-center bg-gradient-to-br from-school-navy/5 to-school-green/5 rounded-3xl p-6 sm:p-8 md:p-12 border border-gray-100">
+          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3">Have Questions?</h3>
+          <p className="text-gray-600 mb-6 sm:mb-8 max-w-xl mx-auto text-sm sm:text-base">
             Our admission team is ready to help you with any queries regarding the admission process
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
             <button
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-full font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 active:scale-95"
+              className="btn-primary w-full sm:w-auto"
             >
               Contact Admission Office
+              <ArrowRight className="w-4 h-4 ml-2" />
             </button>
             <a
               href="tel:+919213555965"
-              className="px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-white text-gray-900 rounded-full font-bold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border-2 border-gray-200 active:scale-95"
+              className="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-900 font-semibold rounded-lg border-2 border-gray-200 hover:border-school-green hover:text-school-green transition-all duration-300 w-full sm:w-auto text-sm sm:text-base"
             >
-              Call: +91 92135 55965
+              +91 92135 55965
             </a>
           </div>
         </div>
