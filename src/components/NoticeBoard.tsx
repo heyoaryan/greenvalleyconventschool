@@ -6,7 +6,20 @@ import { getNotices } from '../lib/supabase';
 export default function NoticeBoard() {
   const [notices, setNotices] = useState<Notice[]>([]);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [expandedNotices, setExpandedNotices] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
+
+  const toggleNoticeExpand = (id: string) => {
+    setExpandedNotices((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
 
   useEffect(() => {
     const loadNotices = async () => {
@@ -75,31 +88,45 @@ export default function NoticeBoard() {
                 <p className="text-xs text-gray-400 font-medium">No notices at the moment</p>
               </div>
             ) : (
-              notices.map((notice) => (
-                <div key={notice.id} className="p-3 sm:p-3.5 hover:bg-gray-50/50 transition-colors">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="w-1.5 h-1.5 bg-school-green rounded-full flex-shrink-0" />
-                    <span className="text-xs text-gray-400">{formatDate(notice.date)}</span>
+              notices.map((notice) => {
+                const isNoticeExpanded = expandedNotices.has(notice.id);
+                const isLong = notice.description && notice.description.length > 100;
+                return (
+                  <div key={notice.id} className="p-3 sm:p-3.5 hover:bg-gray-50/50 transition-colors">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="w-1.5 h-1.5 bg-school-green rounded-full flex-shrink-0" />
+                      <span className="text-xs text-gray-400">{formatDate(notice.date)}</span>
+                    </div>
+                    <h4 className="text-xs sm:text-sm font-semibold text-gray-900 mb-0.5 leading-snug">
+                      {notice.title}
+                    </h4>
+                    <p className={`text-xs text-gray-600 leading-relaxed ${!isNoticeExpanded && isLong ? 'line-clamp-2' : ''}`}>
+                      {notice.description}
+                    </p>
+                    <div className="flex items-center justify-between mt-1.5">
+                      {isLong ? (
+                        <button
+                          onClick={() => toggleNoticeExpand(notice.id)}
+                          className="text-xs font-medium text-school-green hover:underline focus:outline-none"
+                        >
+                          {isNoticeExpanded ? 'Show less' : 'Read more'}
+                        </button>
+                      ) : <span />}
+                      {notice.link && (
+                        <a
+                          href={notice.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-xs font-medium text-school-green hover:underline"
+                        >
+                          {notice.link_text || 'View link'}
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                    </div>
                   </div>
-                  <h4 className="text-xs sm:text-sm font-semibold text-gray-900 mb-0.5 leading-snug">
-                    {notice.title}
-                  </h4>
-                  <p className="text-xs text-gray-600 leading-relaxed line-clamp-2">
-                    {notice.description}
-                  </p>
-                  {notice.link && (
-                    <a
-                      href={notice.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs font-medium text-school-green hover:underline mt-1.5"
-                    >
-                      {notice.link_text || 'View link'}
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
-                </div>
-              ))
+                );
+              })
             )}
           </div>
         )}

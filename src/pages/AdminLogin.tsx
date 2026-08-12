@@ -77,7 +77,11 @@ export default function AdminLogin() {
       const message = err instanceof Error ? err.message : 'Authentication failed.';
 
       if (mode === 'create') {
-        setError(message.includes('already registered') ? 'This email is already registered. Please log in instead.' : 'Failed to create admin account. Please try again.');
+        setError(message.includes('already registered') 
+          ? 'This email is already registered. Please log in instead.' 
+          : message.includes('email') && message.includes('confirm')
+          ? 'Account created! Please check your email to confirm, then log in.'
+          : `Failed to create admin account: ${message}`);
         return;
       }
 
